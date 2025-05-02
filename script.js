@@ -8,24 +8,16 @@
   
     let asc = true;
   
-    // ◼ Hard-coded list of every file (and folder) in your project
-    const files = [
-      'Hosein.html',
-      'M@tinGG.html',
-      'Roghayeh.html',
-      'chest.html',
-      'index.html',
+    // ◼ Hard-coded list of every page in your project, plus a funky emoji
+    const pages = [
+      { file: 'Hosein.html',   title: 'Hosein',   emoji: '🧙‍♂️' },
+      { file: 'M@tinGG.html',   title: 'M@tinGG',   emoji: '⚗️' },
+      { file: 'Roghayeh.html',  title: 'Roghayeh',  emoji: '🪔' },
+      { file: 'Reihoon.html',  title: 'Reihoon',  emoji: '🐦‍' },
+      { file: 'chest.html',     title: 'Chest',     emoji: '🗄️' },
+      { file: 'index.html',     title: 'Dashboard', emoji: '🧟‍♀' },
     ];
-  
-    // Build a "pages" array; for .html files we strip the extension as the title,
-    // for everything else we just show the filename
-    const pages = files.map(file => ({
-      file,
-      title: file.endsWith('.html')
-        ? file.replace(/\.html$/i, '')
-        : file
-    }));
-    console.debug('[Dashboard] Files to list:', pages);
+    console.debug('[Dashboard] Pages to list:', pages);
   
     // Initial render
     render();
@@ -45,7 +37,7 @@
   
       grid.innerHTML = '';
       if (!list.length) {
-        grid.innerHTML = `<p><em>No files match “${searchIn.value}”.</em></p>`;
+        grid.innerHTML = `<p><em>No pages match “${searchIn.value}”.</em></p>`;
         return;
       }
   
@@ -53,7 +45,7 @@
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <h2>${p.title}</h2>
+          <h2>${p.emoji} ${p.title}</h2>
           <a href="${p.file}" target="_blank">Open ›</a>
         `;
         grid.appendChild(card);
