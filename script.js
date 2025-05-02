@@ -10,25 +10,11 @@
   
     // ◼ Hard-coded list of every file (and folder) in your project
     const files = [
-      'Hosein.css',
       'Hosein.html',
-      'M@tinGG.css',
       'M@tinGG.html',
-      'README.md',
-      'Roghayeh.css',
       'Roghayeh.html',
-      'chest.gif',
       'chest.html',
-      'chest.js',
-      'download.jfif',
-      'first/hossein',
-      'first/matin',
-      'first/reihaneh',
-      'first/rohayeh',
-      'g.webp',
-      'img/High_resolution_wallpaper_background_ID_77700413385.webp',
       'index.html',
-      'script.js'
     ];
   
     // Build a "pages" array; for .html files we strip the extension as the title,
