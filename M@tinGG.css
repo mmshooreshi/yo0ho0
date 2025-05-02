@@ -17,12 +17,12 @@ body{
         transform: rotateX('20deg');
     }
     45%{
-        rotate: 210deg;
+        rotate: 400000000000deg;
     }
     50%{
         rotate: 340deg;
     }
     100%{
-        rotate: 36000000deg;
+        rotate: 390000000000000000000000deg;
     }
 }
