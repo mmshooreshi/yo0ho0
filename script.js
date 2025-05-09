@@ -15,7 +15,7 @@
       { file: 'Roghayeh.html',  title: 'Roghayeh',  emoji: '🪔' },
       { file: 'Reihoon.html',  title: 'Reihoon',  emoji: '🐦‍' },
       { file: 'chest.html',     title: 'Chest',     emoji: '🗄️' },
-      { file: 'index.html',     title: 'Dashboard', emoji: '🧟‍♀' },
+      { file: 'index.html',     title: 'Dashboard', emoji: '🏠' },
     ];
     console.debug('[Dashboard] Pages to list:', pages);
   
