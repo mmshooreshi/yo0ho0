@@ -1,84 +1,58 @@
+/* index.html */
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>📂 Page Dashboard</title>
-  <!-- You could extract these into styles.css -->
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Extend Tailwind with custom animations
+    tailwind.config = {
+      theme: {
+        extend: {
+          keyframes: {
+            'fade-up': {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            'tilt': {
+              '0%, 100%': { transform: 'rotate(0deg)' },
+              '50%': { transform: 'rotate(3deg)' }
+            }
+          },
+          animation: {
+            'fade-up': 'fade-up 0.5s ease-out forwards',
+            'tilt': 'tilt 1s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles -->
   <style>
-    :root {
-      --bg: #f5f5f5; --fg: #222;
-      --card: #fff;  --shadow: rgba(0,0,0,0.1);
-    }
-    body.dark {
-      --bg: #1e1e1e; --fg: #ddd;
-      --card: #2b2b2b; --shadow: rgba(0,0,0,0.5);
-    }
-    *,*::before,*::after { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 1rem;
-      font-family: sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      transition: background .3s,color .3s;
-    }
-    header {
-      display: flex; flex-wrap: wrap; gap: .5rem;
-      align-items: center; margin-bottom: 1rem;
-    }
-    header input {
-      flex: 1; padding: .5rem;
-      border: 1px solid #aaa; border-radius: 4px;
-      font-size: 1rem;
-    }
-    header button {
-      padding: .5rem 1rem; border: none;
-      border-radius: 4px; cursor: pointer;
-      font-size: 1rem;
-    }
-    .chest {
-      width: 2rem; height: 2rem;
-      background: url('assets/chest.gif') center/cover no-repeat;
-    }
-    #grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
-      gap: 1rem;
-    }
-    .card {
-      background: var(--card);
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px var(--shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform .2s,box-shadow .2s;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px var(--shadow);
-    }
-    .card h2 { margin: 0 0 .5rem; font-size: 1.1rem; }
-    .card a {
-      margin-top: auto; text-decoration: none;
-      color: var(--fg); font-weight: bold;
-      text-align: right;
-    }
-    .card a:hover { text-decoration: underline; }
+    .chest { @apply w-10 h-10 bg-cover bg-center; background-image: url('assets/chest.gif'); }
   </style>
 </head>
-<body>
-  <header>
-    <input id="search" type="search" placeholder="🔍 Search pages…">
-    <button id="sortBtn">Sort: A→Z</button>
-    <button id="themeBtn">🌓 Theme</button>
+<body class="bg-gray-100 text-gray-900 transition-colors duration-300">
+  <header class="flex flex-wrap items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow-md">
+    <input id="search" type="search" placeholder="🔍 Search pages…"
+      class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+    <button id="sortBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+      Sort: A→Z
+    </button>
+    <button id="themeBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition">
+      🌓 Theme
+    </button>
     <div class="chest"></div>
   </header>
 
-  <main id="grid"></main>
+  <main id="grid" class="p-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"></main>
 
-  <!-- Load your dashboard script with cache-busting -->
+  <!-- Dashboard Script Loader -->
   <script>
     (function(){
       const s = document.createElement('script');
@@ -88,7 +62,7 @@
     })();
   </script>
 
-  <!-- Cursor Party plugin (always hot-loaded) -->
+  <!-- Cursor Party Plugin -->
   <script src="https://cursor-party.mmshooreshi.partykit.dev/cursors.js" defer></script>
 </body>
 </html>
