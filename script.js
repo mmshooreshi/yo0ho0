@@ -101,7 +101,7 @@
   //   };
   // }
 
-  async function getRepoStats(user) {
+  async function getRepoStats(user, STATS) {
     const s = STATS[user.github];               // keyed the same way you saved it
     return s
       ? {
@@ -132,10 +132,19 @@
     ).join("");
   }
 
+
+    /* ----------  build-time stats  ---------- */
+    let STATS = {};
+    fetch("data/stats.json")               // ↙ whatever path you wrote in the Action
+      .then(r => r.json())
+      .then(j => { STATS = j; render(); });   // call render again when data arrives
+    /* --------------------------------------- */
+
+  
   async function createCard(user, idx) {
     const card = document.createElement("div");
     card.className =
-      "bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg transform hover:scale-105 transition animate-fade-up";
+      "bg-white dark:bg-gray-700 p-2 rounded-xl shadow-lg transform hover:scale-105 transition animate-fade-up";
     card.style.animationDelay = `${idx * 100}ms`;
 
     card.innerHTML = `
@@ -148,7 +157,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 20v-6h4l-6-8v6H4l6 8z"/></svg>
         </a>
       </div>
-      <ul class="mt-4 grid grid-cols-2 gap-2 text-sm text-gray-800 dark:text-gray-200">
+      <ul class="mt-4 flex flex-col gap-2 text-sm text-gray-800 dark:text-gray-200">
         
         <li id="github-account-${idx}" class="flex gap-1 items-center">⛟ Github account created? ⏳</li>
         <li id="repo-${idx}" class="flex gap-1 items-center">🗄️ Repo: ⏳</li>
@@ -163,8 +172,11 @@
 
     grid.appendChild(card);
 
+
+
+
     // Fetch stats
-    const stats = await getRepoStats(user);
+    const stats = await getRepoStats(user, STATS);
     $(`#github-account-${idx}`).innerHTML = `⛟ Github:${stats.githubAccountCreated ? "✅" : "❌"}`;
     $(`#repo-${idx}`).innerHTML = `🗄️ Repo: ${stats.repoOk ? "✅" : "❌"}`;
     $(`#page-${idx}`).innerHTML = `🌐 Page: ${stats.pageOk ? "✅" : "❌"}`;
@@ -177,14 +189,6 @@
         $(`#qstat-${idx}-${i}`).textContent = Math.random() > 0.5 ? "✅" : "❌";
       }, 800 + i * 400);
     });
-
-    /* ----------  build-time stats  ---------- */
-    let STATS = {};
-    fetch("data/stats.json")               // ↙ whatever path you wrote in the Action
-      .then(r => r.json())
-      .then(j => { STATS = j; render(); });   // call render again when data arrives
-    /* --------------------------------------- */
-
 
     card.addEventListener("click", () => {
       modalTitle.textContent = `${user.title}'s Quest Guide`;
