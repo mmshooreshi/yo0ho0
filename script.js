@@ -10,10 +10,10 @@
   
     // ◼ Hard-coded list of every page in your project, plus a funky emoji
     const pages = [
-      { file: 'hossein/index.html',   title: 'Hosein',   emoji: '🧙‍♂️' },
-      { file: 'matin/index.html',   title: 'M@tinGG',   emoji: '⚗️' },
-      { file: 'roghayeh/index.html',  title: 'Roghayeh',  emoji: '🪔' },
-      { file: 'reihaneh/index.html',  title: 'Reihoon',  emoji: '🐦‍' },
+      { file: './We/hossein/index.html',   title: 'Hosein',   emoji: '🧙‍♂️' },
+      { file: './We/matin/index.html',   title: 'M@tinGG',   emoji: '⚗️' },
+      { file: './We/roghayeh/index.html',  title: 'Roghayeh',  emoji: '🪔' },
+      { file: './We/reihaneh/index.html',  title: 'Reihoon',  emoji: '🐦‍' },
     ];
     console.debug('[Dashboard] Pages to list:', pages);
   
