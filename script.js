@@ -142,28 +142,27 @@
   
 
   function buildQuestList(idx, githubIdentifier) {
-    QUESTS.map((q, i) =>
-    {
-      console.log(githubIdentifier, q.guide);
-    })
-    return QUESTS.map(
-      (q, i) => `
-      <li class="space-y-1">
-        <details class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-          <summary class="font-semibold cursor-pointer flex items-center gap-2">${
-            i + 1
-          }. ${q.title} <span id="qstat-${idx}-${i}" class="ml-auto text-sm">⏳</span></summary>
-          <p class="mt-2 text-gray-600 dark:text-gray-400">${q.guide.split("REPLACEUSERNAME").join(githubIdentifier)}</p>
-          <pre class="mt-2 bg-gray-100 dark:bg-gray-700 p-2 rounded text-xs overflow-x-auto"><code>${q.code.replace(
+    return QUESTS.map((q, i) => {
+      const processedGuide = q.guide.split("REPLACEUSERNAME").join(githubIdentifier);
+      console.log(processedGuide)
+      const processedCode = q.code.split("REPLACEUSERNAME").join(githubIdentifier);
+  
+      return `
+        <li class="space-y-1">
+          <details class="bg-gray-50 dark:bg-gray-800 p-0 rounded-lg">
+            <summary class="font-semibold text-xs cursor-pointer flex items-center gap-2">
+              ${i + 1}. ${q.title} <span id="qstat-${idx}-${i}" class="ml-auto text-sm">⏳</span>
+            </summary>
+            <p class="mt-2 text-gray-600 dark:text-gray-400">${processedGuide}</p>
+            <pre class="mt-2 bg-gray-100 dark:bg-gray-700 p-2 rounded text-xs overflow-x-auto"><code>${processedCode.replace(
             /</g,
             "&lt;"
           )}</code></pre>
-        </details>
-      </li>`
-    ).join("");
+          </details>
+        </li>`;
+    }).join("");
   }
-
-
+  
     /* ----------  build-time stats  ---------- */
     let STATS = {};
     fetch("data/stats.json")               // ↙ whatever path you wrote in the Action
@@ -198,7 +197,7 @@
       </ul>
       <details class="mt-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
         <summary class="cursor-pointer font-medium">Quest log</summary>
-        <ul class="mt-2 space-y-3">${buildQuestList(idx,user.github)}</ul>
+        <ul class="mt-2 space-y-1">${buildQuestList(idx,user.github)}</ul>
       </details>`;
 
     grid.appendChild(card);
@@ -226,7 +225,7 @@
     card.addEventListener("click", () => {
       modalTitle.textContent = `${user.title}'s Quest Guide`;
       tasksList.innerHTML = buildQuestList(idx, user.github);
-      modal.classList.remove("hidden");
+      // modal.classList.remove("hidden");
     });
   }
 
