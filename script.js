@@ -102,15 +102,42 @@
   // }
 
   async function getRepoStats(user, STATS) {
-    const s = STATS[user.github];               // keyed the same way you saved it
-    return s
-      ? {
-          repoOk:            s.exists,
-          pageOk:            s.pageOk,          // you may have named it live / ok
-          commitCount:       s.commitCount,
-          lastDate:          s.lastDate
-        }
-      : { repoOk:false, pageOk:false, commitCount:0, lastDate:"-" };
+    const s = STATS[user.github];
+    const hasAccount = !!(s && s.raw && s.raw.accountCreation);
+    const homeRepoUrl = `https://github.com/${user.github}/${user.github}.github.io`;
+    const homeUrl = `https://${user.github}.github.io`
+    const gitUrl = `https://github.com/${user.github}`;
+    const commitCheckUrl = `https://github.com/search?q=${user.github}&type=commits`;
+
+    if (!s) {
+      return {
+        githubAccountUrl:     gitUrl,
+        githubAccountCreated: false,
+        homeRepoUrl:          homeRepoUrl,
+        homeUrl:              homeUrl,
+        repoOk:               false,
+        pageOk:               false,
+        commitCheckUrl:       commitCheckUrl,
+        commitCount:          0,
+        lastDate:             "-",
+        metrics:              {},
+        raw:                  {}
+      };
+    }
+  
+    return {
+      githubAccountUrl:     gitUrl,
+      githubAccountCreated: hasAccount,
+      homeRepoUrl:          homeRepoUrl,
+      homeUrl:              homeUrl,
+      repoOk:               s.exists,
+      pageOk:               s.pageOk,
+      commitCheckUrl:       commitCheckUrl,
+      commitCount:          s.commitCount,
+      lastDate:             s.lastDate,
+      metrics:              s.metrics,
+      raw:                   s.raw
+    };
   }
   
 
@@ -177,17 +204,19 @@
 
     // Fetch stats
     const stats = await getRepoStats(user, STATS);
-    $(`#github-account-${idx}`).innerHTML = `⛟ Github:${stats.githubAccountCreated ? "✅" : "❌"}`;
-    $(`#repo-${idx}`).innerHTML = `🗄️ Repo: ${stats.repoOk ? "✅" : "❌"}`;
-    $(`#page-${idx}`).innerHTML = `🌐 Page: ${stats.pageOk ? "✅" : "❌"}`;
-    $(`#commits-${idx}`).textContent = `📦 Commits: ${stats.commitCount}`;
+    console.log(stats)
+    $(`#github-account-${idx}`).innerHTML = `<a href="${stats.githubAccountUrl}"> ⛟ Github: ${stats.githubAccountCreated ? "✅ </a>" : "❌ </a>"}`;
+    $(`#repo-${idx}`).innerHTML = `<a href="${stats.homeRepoUrl}"> 🗄️ Repo: ${stats.repoOk ? "✅ </a>" : "❌ </a>"}`;
+    $(`#page-${idx}`).innerHTML = `<a href="${stats.homeUrl}"> 🌐 Page: ${stats.pageOk ? "✅ </a>" : "❌ </a>"}`;
+    $(`#commits-${idx}`).innerHTML = `<a href="${stats.commitCheckUrl}"> 📦 Commits: ${stats.commitCount} </a>`;
     $(`#last-${idx}`).textContent = `🕒 Last: ${stats.lastDate}`;
 
     // Random status simulation for quests
     QUESTS.forEach((_, i) => {
-      setTimeout(() => {
-        $(`#qstat-${idx}-${i}`).textContent = Math.random() > 0.5 ? "✅" : "❌";
-      }, 800 + i * 400);
+      $(`#qstat-${idx}-${i}`).textContent = "❌";
+      // setTimeout(() => {
+      //   $(`#qstat-${idx}-${i}`).textContent = Math.random() > 0.5 ? "✅" : "❌";
+      // }, 800 + i * 400);
     });
 
     card.addEventListener("click", () => {
