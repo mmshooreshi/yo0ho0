@@ -25,7 +25,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.GH_PAT }}   # PAT with public-repo read perms
         run: |
-          node scripts/fetch-stats.js
+          node scripts/fetch-stats.mjs
 
       # --- 3. commit stats.json back (even if unchanged = warn, not fail) ---
       - name: Commit updated stats

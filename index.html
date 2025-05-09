@@ -15,20 +15,30 @@
     <style>
       :root {
         --bg: #f9fafb;
-        --text: #1f2937;
+        --text: #6b8ab5;
+
         --accent: #6366f1;
-        --card: #ffffff;
+        --card: #515290;
+        --card-text: #c2ccda;
+
         --border: #e5e7eb;
         --highlight: #facc15;
+        --highlight-text: #791de3;
+
       }
 
       .dark, .theme.dark {
         --bg: #111827;
-        --text: #f9fafb;
+        --text: #ffffff;
         --accent: #818cf8;
         --card: #1f2937;
+        --card-text: #c2ccda;
+
         --border: #374151;
         --highlight: #facc15;
+        --highlight-text: #791de3;
+
+        
       }
 
       .theme {
@@ -38,7 +48,7 @@
 
       .card {
         background-color: var(--card);
-        color: var(--text);
+        color: var(--card-text);
         border-color: var(--border);
       }
 
@@ -55,7 +65,7 @@
 
       .highlight {
         background-color: var(--highlight);
-        color: var(--text);
+        color: var(--highlight-text);
 
       }
     </style>
