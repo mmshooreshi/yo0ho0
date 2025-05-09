@@ -31,7 +31,7 @@ jobs:
       - name: Commit updated stats
         uses: EndBug/add-and-commit@v9
         with:
-          add: "data/stats-automated.json"
+          add: "data/stats.json"
           author_name: github-actions
           author_email: actions@github.com
           message: "chore: refresh stats.json"

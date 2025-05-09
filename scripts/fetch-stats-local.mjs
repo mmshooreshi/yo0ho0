@@ -1,7 +1,7 @@
 // scripts/fetch-stats.mjs
 import fs from "node:fs/promises";
-// import dotenv from "dotenv";
-// dotenv.config();
+import dotenv from "dotenv";
+dotenv.config();
 
 const USERS = ["HoseinM89", "MatinGG", "Reihaneh0-0", "Fuxgxugx135"];
 const headers = process.env.TOKEN ? { Authorization: `token ${process.env.TOKEN}` } : {};
