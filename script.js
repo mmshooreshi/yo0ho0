@@ -49,8 +49,8 @@
   const QUESTS = [
     {
       title: "Create Repo",
-      guide: `Open GitHub \u2192 new repository <code><strong>&lt;username&gt;.github.io</strong></code>. Initialise with README.`,
-      code: `gh repo create &lt;username&gt;.github.io --public --source=.`,
+      guide: `Open GitHub \u2192 new repository <code><strong>REPLACEUSERNAME.github.io</strong></code>. Initialise with README.`,
+      code: `gh repo create REPLACEUSERNAME.github.io --public --source=.`,
     },
     {
       title: "Hero Banner",
@@ -69,7 +69,7 @@
     },
     {
       title: "Push &amp; Verify",
-      guide: "Commit, push and confirm your page loads at <code>https://&lt;username&gt;.github.io</code>.",
+      guide: "Commit, push and confirm your page loads at <code>https://REPLACEUSERNAME.github.io</code>.",
       code: `git add . && git commit -m "🚀 launch" && git push`,
     },
   ];
@@ -141,7 +141,11 @@
   }
   
 
-  function buildQuestList(idx) {
+  function buildQuestList(idx, githubIdentifier) {
+    QUESTS.map((q, i) =>
+    {
+      console.log(githubIdentifier, q.guide);
+    })
     return QUESTS.map(
       (q, i) => `
       <li class="space-y-1">
@@ -149,7 +153,7 @@
           <summary class="font-semibold cursor-pointer flex items-center gap-2">${
             i + 1
           }. ${q.title} <span id="qstat-${idx}-${i}" class="ml-auto text-sm">⏳</span></summary>
-          <p class="mt-2 text-gray-600 dark:text-gray-400">${q.guide}</p>
+          <p class="mt-2 text-gray-600 dark:text-gray-400">${q.guide.split("REPLACEUSERNAME").join(githubIdentifier)}</p>
           <pre class="mt-2 bg-gray-100 dark:bg-gray-700 p-2 rounded text-xs overflow-x-auto"><code>${q.code.replace(
             /</g,
             "&lt;"
@@ -194,7 +198,7 @@
       </ul>
       <details class="mt-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
         <summary class="cursor-pointer font-medium">Quest log</summary>
-        <ul class="mt-2 space-y-3">${buildQuestList(idx)}</ul>
+        <ul class="mt-2 space-y-3">${buildQuestList(idx,user.github)}</ul>
       </details>`;
 
     grid.appendChild(card);
@@ -221,7 +225,7 @@
 
     card.addEventListener("click", () => {
       modalTitle.textContent = `${user.title}'s Quest Guide`;
-      tasksList.innerHTML = buildQuestList(idx);
+      tasksList.innerHTML = buildQuestList(idx, user.github);
       modal.classList.remove("hidden");
     });
   }
