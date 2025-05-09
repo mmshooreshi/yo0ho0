@@ -37,4 +37,5 @@ jobs:
           message: "chore: refresh stats.json"
           pathspec_error_handling: ignore
           push: true
-          allow_empty: true              # <- prevents failure when no diff
+
+permissions: { contents: write }
