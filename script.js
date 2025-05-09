@@ -1,78 +1,73 @@
 // script.js
-;(function(){
-    console.debug('[Dashboard] Init…');
-    const grid     = document.getElementById('grid');
-    const searchIn = document.getElementById('search');
-    const sortBtn  = document.getElementById('sortBtn');
-    const themeBtn = document.getElementById('themeBtn');
-  
-    let asc = true;
-  
-    // ◼ Hard-coded list of every page in your project, plus a funky emoji
-    const pages = [
-      { file: './We/hossein/index.html',   title: 'Hosein',   emoji: '🧙‍♂️' },
-      { file: './We/matin/index.html',   title: 'M@tinGG',   emoji: '⚗️' },
-      { file: './We/roghayeh/index.html',  title: 'Roghayeh',  emoji: '🪔' },
-      { file: './We/reihaneh/index.html',  title: 'Reihoon',  emoji: '🐦‍' },
-    ];
-    console.debug('[Dashboard] Pages to list:', pages);
-  
-    // Initial render
+(() => {
+  console.debug('[Dashboard] Init…');
+
+  const $ = sel => document.querySelector(sel);
+  const grid     = $('#grid');
+  const searchIn = $('#search');
+  const sortBtn  = $('#sortBtn');
+  const themeBtn = $('#themeBtn');
+
+  let asc = true;
+  const PAGES = [
+    { path: './We/hossein/index.html',   title: 'Hosein',   emoji: '🧙‍♂️' },
+    { path: './We/matin/index.html',     title: 'M@tinGG',   emoji: '⚗️' },
+    { path: './We/roghayeh/index.html',  title: 'Roghayeh',  emoji: '🪔' },
+    { path: './We/reihaneh/index.html',  title: 'Reihaneh',  emoji: '🐦‍' },
+  ];
+
+  // Apply saved theme
+  const applyTheme = mode => {
+    document.body.classList.toggle('dark', mode === 'dark');
+    localStorage.setItem('theme', mode);
+    console.debug('[Dashboard] Theme set to', mode);
+  };
+
+  // Build the grid
+  const render = () => {
+    const term = searchIn.value.trim().toLowerCase();
+    const filtered = PAGES
+      .filter(({ title, path }) =>
+        title.toLowerCase().includes(term) ||
+        path.toLowerCase().includes(term)
+      )
+      .sort((a, b) =>
+        asc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+      );
+
+    if (!filtered.length) {
+      grid.innerHTML = `<p><em>No pages match “${searchIn.value}”.</em></p>`;
+    } else {
+      grid.innerHTML = filtered.map(
+        ({ emoji, title, path }) => `
+        <div class="card">
+          <h2>${emoji} ${title}</h2>
+          <a href="${path}" target="_blank">Open ›</a>
+        </div>`
+      ).join('');
+    }
+  };
+
+  // Event hookups
+  searchIn.addEventListener('input', () => {
+    console.debug('[Dashboard] Search:', searchIn.value);
     render();
-  
-    function render() {
-      const term = searchIn.value.toLowerCase();
-      let list = pages
-        .filter(p =>
-          p.title.toLowerCase().includes(term) ||
-          p.file.toLowerCase().includes(term)
-        )
-        .sort((a, b) =>
-          asc
-            ? a.title.localeCompare(b.title)
-            : b.title.localeCompare(a.title)
-        );
-  
-      grid.innerHTML = '';
-      if (!list.length) {
-        grid.innerHTML = `<p><em>No pages match “${searchIn.value}”.</em></p>`;
-        return;
-      }
-  
-      for (const p of list) {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <h2>${p.emoji} ${p.title}</h2>
-          <a href="${p.file}" target="_blank">Open ›</a>
-        `;
-        grid.appendChild(card);
-      }
-    }
-  
-    // Wire up search & sort
-    searchIn.addEventListener('input', () => {
-      console.debug('[Dashboard] Search:', searchIn.value);
-      render();
-    });
-    sortBtn.addEventListener('click', () => {
-      asc = !asc;
-      sortBtn.textContent = asc ? 'Sort: A→Z' : 'Sort: Z→A';
-      console.debug('[Dashboard] Sort order:', asc ? 'asc' : 'desc');
-      render();
-    });
-  
-    // Theme toggle
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-    }
-    themeBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      const now = document.body.classList.contains('dark') ? 'dark' : 'light';
-      localStorage.setItem('theme', now);
-      console.debug('[Dashboard] Theme set to', now);
-    });
-  
-    console.debug('[Dashboard] Ready.');
-  })();
-  
+  });
+
+  sortBtn.addEventListener('click', () => {
+    asc = !asc;
+    sortBtn.textContent = `Sort: ${asc ? 'A→Z' : 'Z→A'}`;
+    console.debug('[Dashboard] Sort order:', asc ? 'asc' : 'desc');
+    render();
+  });
+
+  themeBtn.addEventListener('click', () => {
+    const mode = document.body.classList.toggle('dark') ? 'dark' : 'light';
+    applyTheme(mode);
+  });
+
+  // Initialize
+  applyTheme(localStorage.getItem('theme') === 'dark' ? 'dark' : 'light');
+  render();
+  console.debug('[Dashboard] Ready.');
+})();
