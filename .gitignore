@@ -1,3 +1,4 @@
 .catignore
 s.json
 o.json
+.env

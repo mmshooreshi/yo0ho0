@@ -2,12 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>📂 Page Dashboard</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
   <script>
     tailwind.config = {
       theme: {
@@ -16,59 +20,201 @@
             'fade-up': {
               '0%': { opacity: '0', transform: 'translateY(20px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' }
-            },
-            'pulse-slow': {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0.5' }
             }
           },
           animation: {
-            'fade-up': 'fade-up 0.5s ease-out forwards',
-            'pulse-slow': 'pulse-slow 2s ease-in-out infinite'
+            'fade-up': 'fade-up 0.4s ease-out forwards'
           }
         }
       }
-    }
+    };
   </script>
 </head>
-<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-  <header class="flex flex-wrap items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-md">
-    <div class="flex items-center gap-4">
-      <input id="search" type="search" placeholder="🔍 Search users…"
-        class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
-      <button id="sortBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-        Sort: A→Z
-      </button>
-    </div>
-    <div class="flex items-center gap-4">
-      <button id="themeBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition">
-        🌓 Theme
-      </button>
-      <div class="w-10 h-10 bg-cover bg-center animate-pulse-slow" style="background-image:url('assets/chest.gif')"></div>
-    </div>
+<body
+  class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300"
+>
+  <!-- TOP BAR -->
+  <header
+    class="flex flex-wrap gap-4 items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-md"
+  >
+    <h1 class="text-2xl font-bold mr-auto">Project Dashboard</h1>
+    <input
+      id="search"
+      type="search"
+      placeholder="🔍 Search users…"
+      class="flex-1 min-w-[10rem] px-3 py-2 border border-gray-300 dark:border-gray-600 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    />
+    <button
+      id="sortBtn"
+      class="px-4 py-2 bg-indigo-600 text-white text-black rounded-lg hover:bg-indigo-700 transition">
+      Sort: A→Z
+    </button>
+    <button
+      id="themeBtn"
+      class="px-3 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 text-black rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition"
+    >
+      🌓 Theme
+    </button>
   </header>
 
-  <main id="grid" class="p-4 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4"></main>
-
-  <!-- Modal Container -->
-  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full shadow-lg animate-fade-up">
-      <h3 class="text-xl font-bold mb-4">📝 Assignment Instructions</h3>
-      <ul id="instruction-list" class="list-disc pl-5 space-y-2 text-gray-800 dark:text-gray-200"></ul>
-      <button id="modalClose" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Close</button>
+    <main class="p-4 space-y-6 max-w-5xl mx-auto">
+      <!-- General Instruction Card -->
+      <section
+        class="bg-white dark:bg-gray-800 p-6  rounded-xl shadow-lg animate__animated animate__fadeInUp"
+      >
+        <h2 class="text-xl font-semibold mb-3 flex items-center gap-2">
+          🎮 <span class="tracking-wide">Quest Log</span>
+        </h2>
+        <p class="mb-4 text-gray-700 dark:text-gray-300">
+          Your mission: forge a live <code class="px-1 py-0.5 bg-gray-200 text-black rounded">&lt;username&gt;.github.io</code>
+          site in
+          <span class="font-bold text-indigo-600">5 crystal‑clear steps</span>.
+          Scroll below, open your player card, and complete each mini‑quest. The
+          HUD updates in real‑time—no refresh needed.
+          <em class="text-sm text-gray-500 block">(Yes, even on a slow Wi‑Fi. We tested it. Twice!)</em>
+        </p>
+        <details
+          class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg open:shadow-inner group transition-all duration-300"
+        >
+          <summary class="cursor-pointer font-medium flex items-center gap-2">
+            📖 <span class="group-open:underline">Click for mini‑quest list</span>
+          </summary>
+          <ol
+            class="mt-4 list-decimal list-inside space-y-4 text-gray-700 dark:text-gray-300">
+            <!-- Quest 1 -->
+            <li>
+              <span class="font-semibold">🏗️ Create your repository</span>
+              <em class="text-xs text-gray-500">(No hammer required!)</em>
+              <ul class="list-disc list-inside ml-6 mt-1 space-y-1 text-sm">
+                <li>
+                  Log in to <span class="bg-yellow-100 px-1 text-black rounded">GitHub</span>.
+                </li>
+                <li>
+                  Hit <span class="bg-yellow-100 px-1 text-black rounded">New&nbsp;repository</span>
+                  ➡️ Name it exactly
+                  <code class="bg-gray-200 px-1 text-black rounded">&lt;username&gt;.github.io</code>.
+                </li>
+                <li>Set visibility to <strong>Public</strong>.</li>
+                <li>(Optional) tick <strong>“Add a README”</strong> — it’s like a welcome mat.</li>
+                <li>Click <span class="bg-green-200 px-1 text-black rounded">Create&nbsp;repository</span>.</li>
+              </ul>
+            </li>
+  
+            <!-- Quest 2 -->
+            <li>
+              <span class="font-semibold">🎨 Add a bold hero banner</span>
+              <em class="text-xs text-gray-500">(Because blank pages are sooo 2024.)</em>
+              <ul class="list-disc list-inside ml-6 mt-1 space-y-1 text-sm">
+                <li>Create <code class="bg-gray-200 px-1 text-black rounded">index.html</code> in the repo.</li>
+                <li>
+                  Add a&nbsp;<code class="bg-gray-200 px-1 text-black rounded">&lt;header&gt;</code> that fills the
+                  viewport: <code>&lt;header class="h-screen flex flex-col justify-center items-center"&gt;</code>
+                </li>
+                <li>Put your site title in a giant
+                  <code class="bg-gray-200 px-1 text-black rounded">&lt;h1 class="text-6xl font-bold"&gt;</code>.
+                </li>
+                <li>Style with Tailwind CDN or your own build pipeline.</li>
+                <li class="animate__animated animate__pulse animate__infinite">✅ Done? Commit and push.</li>
+              </ul>
+            </li>
+  
+            <!-- Quest 3 -->
+            <li>
+              <span class="font-semibold">🖋️ Load a custom Google Font + palette</span>
+              <em class="text-xs text-gray-500">(Comic Sans? We don’t judge.)</em>
+              <ul class="list-disc list-inside ml-6 mt-1 space-y-1 text-sm">
+                <li>Browse <a href="https://fonts.google.com" class="text-blue-600 underline">fonts.google.com</a> and pick your favorite.</li>
+                <li>Copy the <code class="bg-gray-200 px-1 text-black rounded">&lt;link&gt;</code> tag into your HTML <code class="bg-gray-200 px-1 text-black rounded">&lt;head&gt;</code>.</li>
+                <li>Apply with Tailwind: <code class="bg-gray-200 px-1 text-black rounded">font-[FontName]</code> (or extend in <code class="bg-gray-200 px-1 text-black rounded">tailwind.config.js</code>).</li>
+                <li>
+                  Choose a <span class="bg-yellow-100 px-1 text-black rounded">color palette</span> (e.g., via
+                  <a href="https://coolors.co" class="text-blue-600 underline">Coolors</a>) and set custom CSS variables.
+                </li>
+              </ul>
+            </li>
+  
+            <!-- Quest 4 -->
+            <li>
+              <span class="font-semibold">⏰ Insert a live clock with JavaScript</span>
+              <em class="text-xs text-gray-500">(Time really does fly when you’re coding.)</em>
+              <ul class="list-disc list-inside ml-6 mt-1 space-y-1 text-sm">
+                <li>Add a&nbsp;<code class="bg-gray-200 px-1 text-black rounded">&lt;span id="clock"&gt;</code> inside your hero banner.</li>
+                <li>
+                  Append a script:
+                  <pre class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs overflow-auto"><code>
+  const clock = document.getElementById("clock");
+  setInterval(() => {
+    const now = new Date();
+    clock.textContent = now.toLocaleTimeString();
+  }, 1000);
+  </code></pre>
+                </li>
+                <li>Save ➡️ commit ➡️ push.</li>
+              </ul>
+            </li>
+  
+            <!-- Quest 5 -->
+            <li>
+              <span class="font-semibold">🚀 Push & verify your page is live</span>
+              <em class="text-xs text-gray-500">(This is the moment 🎉)</em>
+              <ul class="list-disc list-inside ml-6 mt-1 space-y-1 text-sm">
+                <li>Open your terminal in the repo folder.</li>
+                <li>
+                  Run <code class="bg-gray-200 px-1 text-black rounded">git add .</code>
+                  &nbsp;⏩&nbsp;
+                  <code class="bg-gray-200 px-1 text-black rounded">git commit -m "do0do0ro0-do0do0"</code>
+                  &nbsp;⏩&nbsp;
+                  <code class="bg-gray-200 px-1 text-black rounded">git push</code>
+                </li>
+                <li>
+                  Wait ~60 sec, then head to <code class="bg-gray-200 px-1 text-black rounded">https://&lt;username&gt;.github.io</code>.
+                </li>
+                <li>If you see your banner + clock, you’ve nailed it! <em>(High‑five yourself.)</em></li>
+                <li>Not live? Check Settings ▸ Pages ▸ Branch set to <code class="bg-gray-200 px-1 text-black rounded">main /root</code>.</li>
+              </ul>
+            </li>
+          </ol>
+        </details>
+      </section>
+  
+      <!-- User Cards Grid (autopopulated elsewhere) -->
+      <div id="grid" class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+    </main>
+  
+  <!-- Modal with detailed story instructions -->
+  <div
+    id="modal"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+  >
+    <div
+      class="bg-white dark:bg-gray-800 p-6 text-black rounded-xl max-w-lg w-full shadow-lg animate-fade-up"
+    >
+      <h3 id="modalTitle" class="text-xl font-bold mb-4"></h3>
+      <ul
+        id="tasks-list"
+        class="list-disc pl-5 space-y-4 text-gray-800 dark:text-gray-200"
+      ></ul>
+      <button
+        id="modalClose"
+        class="mt-6 px-4 py-2 bg-red-500 text-white text-black rounded-lg hover:bg-red-600 transition"
+      >
+        Close
+      </button>
     </div>
   </div>
 
-  <!-- Load script.js with cache-busting -->
+  <!-- load script.js with cache-bust -->
   <script>
-    (function(){
-      const s = document.createElement('script');
+    (function () {
+      const s = document.createElement("script");
       s.src = `script.js?v=${Date.now()}`;
       s.defer = true;
       document.head.appendChild(s);
     })();
   </script>
-  <!-- Cursor Party Plugin -->
-  <script src="https://cursor-party.mmshooreshi.partykit.dev/cursors.js" defer></script>
+  <script
+    src="https://cursor-party.mmshooreshi.partykit.dev/cursors.js"
+    defer
+  ></script>
 </body>
 </html>
