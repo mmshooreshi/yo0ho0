@@ -1,0 +1,68 @@
+/* index.html */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>📂 Page Dashboard</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Extend Tailwind with custom animations
+    tailwind.config = {
+      theme: {
+        extend: {
+          keyframes: {
+            'fade-up': {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            'tilt': {
+              '0%, 100%': { transform: 'rotate(0deg)' },
+              '50%': { transform: 'rotate(3deg)' }
+            }
+          },
+          animation: {
+            'fade-up': 'fade-up 0.5s ease-out forwards',
+            'tilt': 'tilt 1s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <style>
+    .chest { @apply w-10 h-10 bg-cover bg-center; background-image: url('assets/chest.gif'); }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900 transition-colors duration-300">
+  <header class="flex flex-wrap items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow-md">
+    <input id="search" type="search" placeholder="🔍 Search pages…"
+      class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+    <button id="sortBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+      Sort: A→Z
+    </button>
+    <button id="themeBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition">
+      🌓 Theme
+    </button>
+    <div class="chest"></div>
+  </header>
+
+  <main id="grid" class="p-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"></main>
+
+  <!-- Dashboard Script Loader -->
+  <script>
+    (function(){
+      const s = document.createElement('script');
+      s.src = `script.js?v=${Date.now()}`;
+      s.defer = true;
+      document.head.appendChild(s);
+    })();
+  </script>
+
+  <!-- Cursor Party Plugin -->
+  <script src="https://cursor-party.mmshooreshi.partykit.dev/cursors.js" defer></script>
+</body>
+</html>

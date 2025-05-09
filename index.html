@@ -1,4 +1,4 @@
-/* index.html */
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,6 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Extend Tailwind with custom animations
     tailwind.config = {
       theme: {
         extend: {
@@ -18,41 +17,49 @@
               '0%': { opacity: '0', transform: 'translateY(20px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' }
             },
-            'tilt': {
-              '0%, 100%': { transform: 'rotate(0deg)' },
-              '50%': { transform: 'rotate(3deg)' }
+            'pulse-slow': {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.5' }
             }
           },
           animation: {
             'fade-up': 'fade-up 0.5s ease-out forwards',
-            'tilt': 'tilt 1s ease-in-out infinite'
+            'pulse-slow': 'pulse-slow 2s ease-in-out infinite'
           }
         }
       }
     }
   </script>
-
-  <!-- Custom Styles -->
-  <style>
-    .chest { @apply w-10 h-10 bg-cover bg-center; background-image: url('assets/chest.gif'); }
-  </style>
 </head>
-<body class="bg-gray-100 text-gray-900 transition-colors duration-300">
-  <header class="flex flex-wrap items-center gap-4 p-4 bg-white dark:bg-gray-800 shadow-md">
-    <input id="search" type="search" placeholder="🔍 Search pages…"
-      class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
-    <button id="sortBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-      Sort: A→Z
-    </button>
-    <button id="themeBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition">
-      🌓 Theme
-    </button>
-    <div class="chest"></div>
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <header class="flex flex-wrap items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-md">
+    <div class="flex items-center gap-4">
+      <input id="search" type="search" placeholder="🔍 Search users…"
+        class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" />
+      <button id="sortBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+        Sort: A→Z
+      </button>
+    </div>
+    <div class="flex items-center gap-4">
+      <button id="themeBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition">
+        🌓 Theme
+      </button>
+      <div class="w-10 h-10 bg-cover bg-center animate-pulse-slow" style="background-image:url('assets/chest.gif')"></div>
+    </div>
   </header>
 
-  <main id="grid" class="p-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"></main>
+  <main id="grid" class="p-4 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4"></main>
 
-  <!-- Dashboard Script Loader -->
+  <!-- Modal Container -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full shadow-lg animate-fade-up">
+      <h3 class="text-xl font-bold mb-4">📝 Assignment Instructions</h3>
+      <ul id="instruction-list" class="list-disc pl-5 space-y-2 text-gray-800 dark:text-gray-200"></ul>
+      <button id="modalClose" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">Close</button>
+    </div>
+  </div>
+
+  <!-- Load script.js with cache-busting -->
   <script>
     (function(){
       const s = document.createElement('script');
@@ -61,7 +68,6 @@
       document.head.appendChild(s);
     })();
   </script>
-
   <!-- Cursor Party Plugin -->
   <script src="https://cursor-party.mmshooreshi.partykit.dev/cursors.js" defer></script>
 </body>
