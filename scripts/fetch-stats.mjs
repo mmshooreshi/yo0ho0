@@ -1,8 +1,7 @@
 // scripts/fetch-stats.mjs
 // import fs from "node:fs/promises";
-// import fetch from "node-fetch";
+import fetch from "node-fetch";
 
-const fetch = require("node-fetch")
 const fs = require("node:fs/promises");
 const users = ["HoseinM89", "MatinGG", "Reihaneh0-0", "Fuxgxugx135"];
 
