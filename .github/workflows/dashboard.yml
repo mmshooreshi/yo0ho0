@@ -1,0 +1,16 @@
+# .github/workflows/dashboard.yml
+name: Build dashboard data
+on: [push]
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch repo stats
+        env:
+          TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          node scripts/fetch-stats.js
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore: refresh stats.json"
