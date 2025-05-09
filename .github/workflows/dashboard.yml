@@ -1,16 +1,40 @@
-# .github/workflows/dashboard.yml
-name: Build dashboard data
-on: [push]
+name: build-dashboard-data
+
+on:
+  push:                 # rebuild whenever you push main
+    branches: [main]
+  workflow_dispatch:    # allow manual run
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
+
+      # --- 1. install Node 18 so `fetch()` is built in ---
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # --- 2. run the fetch script with your PAT ---
       - name: Fetch repo stats
         env:
-          TOKEN: ${{ secrets.GH_PAT }}
+          TOKEN: ${{ secrets.GH_PAT }}   # PAT with public-repo read perms
         run: |
           node scripts/fetch-stats.js
-      - uses: EndBug/add-and-commit@v9
+
+      # --- 3. commit stats.json back (even if unchanged = warn, not fail) ---
+      - name: Commit updated stats
+        uses: EndBug/add-and-commit@v9
         with:
+          add: "data/stats.json"
+          author_name: github-actions
+          author_email: actions@github.com
           message: "chore: refresh stats.json"
+          pathspec_error_handling: ignore
+          push: true
+          allow_empty: true              # <- prevents failure when no diff

@@ -15,15 +15,14 @@
     <style>
       :root {
         --bg: #f9fafb;
-        /* --text: #1f2937; */
-        --text: #162539;
+        --text: #1f2937;
         --accent: #6366f1;
         --card: #ffffff;
         --border: #e5e7eb;
         --highlight: #facc15;
       }
 
-      .dark {
+      .dark, .theme.dark {
         --bg: #111827;
         --text: #f9fafb;
         --accent: #818cf8;
@@ -49,12 +48,15 @@
       }
 
       .btn-accent:hover {
-        background-color: #4f46e5;
+        background-color: var(--accent);
+        filter: brightness(85%);
+
       }
 
       .highlight {
         background-color: var(--highlight);
-        color: #4f46e5;
+        color: var(--text);
+
       }
     </style>
   </head>
