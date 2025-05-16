@@ -35,13 +35,13 @@
     {
       path: "./We/roghayeh/index.html",
       title: "Roghayeh",
-      github: "Reihaneh0-0",
+      github: "Fuxgxugx135",
       emoji: "🪔",
     },
     {
       path: "./We/reihaneh/index.html",
       title: "Reihaneh",
-      github: "Fuxgxugx135",
+      github: "Reihaneh0-0",
       emoji: "🐦‍",
     },
   ];
