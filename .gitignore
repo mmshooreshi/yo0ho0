@@ -5,3 +5,4 @@ o.json
 node_modules
 package-lock.json
 data/stats.json
+board
